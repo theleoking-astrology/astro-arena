@@ -49,6 +49,7 @@
         </div>
 
         <div :class="['choices', choiceSideClass]">
+          <p class="scroll-hint">SCROLL TO REVEAL ALL OPTIONS ↓</p>
           <div class="choices-header">CHOOSE YOUR ACTION</div>
           <button
             v-for="(option, idx) in currentScene?.options ?? []"
@@ -83,6 +84,7 @@
         </div>
 
         <div class="choices multi">
+          <p class="scroll-hint">SCROLL TO REVEAL ALL OPTIONS ↓</p>
           <div class="choices-header">SELECT THE ASPECT</div>
           <button
             v-for="(option, idx) in aspectOptions"
@@ -1343,6 +1345,7 @@ const emit = defineEmits<{ (e: 'exit'): void }>()
   position: relative;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   background: radial-gradient(circle at center, #10131d 0%, #05070c 100%);
   /* Establish stacking context for proper layering */
@@ -1713,6 +1716,16 @@ canvas {
   border-bottom: 1px solid rgba(0, 245, 255, 0.2);
 }
 
+.scroll-hint {
+  display: none;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  margin-bottom: 0.4rem;
+}
+
 .choices.multi .choices-header {
   /* Grid version for aspects */
   grid-column: 1 / -1;
@@ -1742,7 +1755,7 @@ canvas {
   color: #e7f7ff;
   transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
   /* Fixed width so buttons stay together centered in flexbox */
-  width: 16rem;
+  width: min(16rem, 100%);
   flex-shrink: 0;
 }
 
@@ -1886,6 +1899,34 @@ canvas {
 }
 
 @media (max-width: 960px) {
+  .ui {
+    top: 0.85rem;
+    left: 0.85rem;
+    right: 0.85rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .hud {
+    gap: 0.5rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .chip {
+    flex: 1 1 45%;
+    font-size: 0.65rem;
+    padding: 0.45rem 0.55rem;
+    text-align: center;
+  }
+
+  .exit-btn {
+    align-self: flex-end;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.6rem;
+  }
+
   .panel {
     width: 98vw !important;
     max-width: 98vw !important;
@@ -1925,8 +1966,19 @@ canvas {
     padding: 0.8rem;
   }
 
+  .scroll-hint {
+    display: block;
+    color: rgba(255, 255, 255, 0.75);
+    text-align: center;
+  }
+
   .choices.multi {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .choices.multi .scroll-hint,
+  .choices.multi .choices-header {
+    grid-column: 1 / -1;
   }
   
   .choice-btn {
@@ -1961,6 +2013,38 @@ canvas {
   
   .choice-btn .desc {
     font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .chip {
+    font-size: 0.55rem;
+    letter-spacing: 0.05em;
+  }
+
+  .mode-card h1 {
+    font-size: 1.6rem;
+  }
+
+  .mode-card p {
+    font-size: 0.8rem;
+  }
+
+  .mode-btn {
+    font-size: 0.7rem;
+    padding: 0.85rem 1.6rem;
+  }
+
+  .choices.multi {
+    grid-template-columns: 1fr;
+  }
+
+  .choice-btn {
+    width: 100%;
+  }
+
+  .panel {
+    padding: 1rem 0.9rem 1.4rem !important;
   }
 }
 </style>
