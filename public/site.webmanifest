@@ -1,0 +1,19 @@
+{
+  "name": "Astro Arena",
+  "short_name": "AstroArena",
+  "description": "Cinematic astrology battles rendered in real-time 3D.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#060712",
+  "theme_color": "#060712",
+  "icons": [
+    {
+      "src": "/astro-arena-icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
+
+
